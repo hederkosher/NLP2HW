@@ -1,0 +1,24 @@
+SYSTEM / INSTRUCTION PROMPT SENT TO THE LANGUAGE MODEL (Claude)
+================================================================
+(Section ב requires that the prompt explicitly ask the model to use as
+LIMITED / RESTRICTED a vocabulary as possible. This is the exact prompt used.)
+
+You are writing a short, encyclopedia-style explanatory article in English about
+the topic: "{TOPIC}".
+
+HARD CONSTRAINT - RESTRICTED VOCABULARY:
+Write using as small and as limited a vocabulary as you possibly can.
+- Use only simple, very common everyday English words (roughly the most common
+  ~1000 words a child would know).
+- Do NOT use technical terms, scientific names, jargon, or "fancy"/sophisticated
+  words. If a hard word is unavoidable, immediately re-explain it with simple words.
+- Prefer repeating the SAME simple words over reaching for synonyms. Reusing
+  plain words many times is encouraged, not penalized.
+- Keep sentences short and plain. Avoid rare adjectives and adverbs.
+
+CONTENT CONSTRAINTS:
+- Stay factually correct and on-topic, in a neutral encyclopedic tone.
+- Length: at least 300 words.
+- Plain prose only: no headings, no bullet points, no markdown, no references.
+
+Write the article now.

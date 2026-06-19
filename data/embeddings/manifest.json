@@ -1,0 +1,162 @@
+[
+  {
+    "source": "original",
+    "method": "bow",
+    "dim": 30,
+    "shape": [
+      5,
+      30
+    ],
+    "file": "original_bow_30.npz"
+  },
+  {
+    "source": "generated",
+    "method": "bow",
+    "dim": 30,
+    "shape": [
+      5,
+      30
+    ],
+    "file": "generated_bow_30.npz"
+  },
+  {
+    "source": "original",
+    "method": "bow",
+    "dim": 300,
+    "shape": [
+      5,
+      300
+    ],
+    "file": "original_bow_300.npz"
+  },
+  {
+    "source": "generated",
+    "method": "bow",
+    "dim": 300,
+    "shape": [
+      5,
+      300
+    ],
+    "file": "generated_bow_300.npz"
+  },
+  {
+    "source": "original",
+    "method": "tfidf",
+    "dim": 30,
+    "shape": [
+      5,
+      30
+    ],
+    "file": "original_tfidf_30.npz"
+  },
+  {
+    "source": "generated",
+    "method": "tfidf",
+    "dim": 30,
+    "shape": [
+      5,
+      30
+    ],
+    "file": "generated_tfidf_30.npz"
+  },
+  {
+    "source": "original",
+    "method": "tfidf",
+    "dim": 300,
+    "shape": [
+      5,
+      300
+    ],
+    "file": "original_tfidf_300.npz"
+  },
+  {
+    "source": "generated",
+    "method": "tfidf",
+    "dim": 300,
+    "shape": [
+      5,
+      300
+    ],
+    "file": "generated_tfidf_300.npz"
+  },
+  {
+    "source": "original",
+    "method": "fasttext",
+    "dim": 30,
+    "shape": [
+      5,
+      30
+    ],
+    "file": "original_fasttext_30.npz"
+  },
+  {
+    "source": "generated",
+    "method": "fasttext",
+    "dim": 30,
+    "shape": [
+      5,
+      30
+    ],
+    "file": "generated_fasttext_30.npz"
+  },
+  {
+    "source": "original",
+    "method": "fasttext",
+    "dim": 300,
+    "shape": [
+      5,
+      300
+    ],
+    "file": "original_fasttext_300.npz"
+  },
+  {
+    "source": "generated",
+    "method": "fasttext",
+    "dim": 300,
+    "shape": [
+      5,
+      300
+    ],
+    "file": "generated_fasttext_300.npz"
+  },
+  {
+    "source": "original",
+    "method": "minilm",
+    "dim": 30,
+    "shape": [
+      5,
+      30
+    ],
+    "file": "original_minilm_30.npz"
+  },
+  {
+    "source": "generated",
+    "method": "minilm",
+    "dim": 30,
+    "shape": [
+      5,
+      30
+    ],
+    "file": "generated_minilm_30.npz"
+  },
+  {
+    "source": "original",
+    "method": "minilm",
+    "dim": 300,
+    "shape": [
+      5,
+      300
+    ],
+    "file": "original_minilm_300.npz"
+  },
+  {
+    "source": "generated",
+    "method": "minilm",
+    "dim": 300,
+    "shape": [
+      5,
+      300
+    ],
+    "file": "generated_minilm_300.npz"
+  }
+]

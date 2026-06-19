@@ -1,0 +1,19 @@
+# Pinned for mutual compatibility.
+# gensim requires scipy<1.13 (it uses scipy.linalg.triu, removed in 1.13) and is
+# safest on numpy<2; the rest of the stack works fine under those pins too.
+numpy==1.26.4
+scipy==1.12.0
+scikit-learn==1.4.2
+gensim==4.3.3
+pandas==2.2.2
+matplotlib==3.8.4
+seaborn==0.13.2
+sentence-transformers==2.7.0
+torch==2.2.2
+wikipedia==1.4.0
+nltk==3.8.1
+# Notebook tooling (for notebooks/HW2_Embeddings.ipynb)
+jupyter
+nbformat
+nbconvert
+ipykernel

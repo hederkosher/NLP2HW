@@ -52,3 +52,10 @@ dmypy.json
 # IDE
 .idea/
 .vscode/
+
+# Large regenerable embedding artifacts (rebuild with: python -m src.embeddings).
+# The small per-set .npz files and manifest.json ARE tracked; these heavy
+# intermediates are not (the FastText ngrams file alone is ~2.2 GB).
+data/embeddings/*.pkl
+data/embeddings/*.model
+data/embeddings/*.model.*
