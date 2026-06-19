@@ -1,7 +1,7 @@
 """Shared configuration for the Homework 2 (Embeddings) pipeline.
 
 Central place for paths, the 5 chosen topics, embedding methods/sizes, and the
-section-ט probe sentences, so every script agrees on the same conventions.
+section-9 probe sentences, so every script agrees on the same conventions.
 """
 from __future__ import annotations
 
@@ -44,7 +44,7 @@ SOURCES = ["original", "generated"]  # "text types": human vs AI-generated
 ST_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"  # 384-dim
 ST_NATIVE_DIM = 384
 
-# --- Section-ט probe sentences (hand-crafted to expose method differences) --
+# --- Section-9 probe sentences (hand-crafted to expose method differences) --
 # Group A: similar MEANING, different WORDS (low lexical overlap, high semantics)
 PROBE_SIMILAR_MEANING = [
     "The doctor treated the patient.",

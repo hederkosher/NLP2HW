@@ -1,10 +1,10 @@
-"""Phase 6 (סעיף ט): hand-crafted probe sentences that expose method differences.
+"""Phase 6 (section 9): hand-crafted probe sentences that expose method differences.
 
 Group A: similar MEANING, different WORDS   -> tests semantic similarity.
 Group B: similar WORDS, different MEANING    -> tests lexical-overlap confusion.
 
 For each of the 4 methods we embed the 6 sentences and look at the 6x6 cosine
-matrix, then answer the section-ט questions. Results -> results/section_tet_*.
+matrix, then answer the section-9 questions. Results -> results/section_tet_*.
 
 Run:  python -m src.probes
 """
@@ -83,7 +83,7 @@ def main() -> int:
     gaps.sort(key=lambda x: -abs(x[1]))
 
     # ---- render markdown ---------------------------------------------------
-    L = ["# סעיף ט - Probe Sentences (method-difference stress test)\n"]
+    L = ["# Section 9 - Probe Sentences (method-difference stress test)\n"]
     L.append("**Group A - similar meaning, different words:**")
     for i in GROUP_A:
         L.append(f"- {LABELS[i]}: \"{SENTS[i]}\"")

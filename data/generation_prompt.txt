@@ -1,6 +1,6 @@
 SYSTEM / INSTRUCTION PROMPT SENT TO THE LANGUAGE MODEL (Claude)
 ================================================================
-(Section ב requires that the prompt explicitly ask the model to use as
+(Section 2 requires that the prompt explicitly ask the model to use as
 LIMITED / RESTRICTED a vocabulary as possible. This is the exact prompt used.)
 
 You are writing a short, encyclopedia-style explanatory article in English about

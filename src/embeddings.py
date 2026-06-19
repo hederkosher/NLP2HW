@@ -1,8 +1,8 @@
-"""Phase 3 (סעיפים ג + ד): build the 16 embedding sets.
+"""Phase 3 (sections 3 + 4): build the 16 embedding sets.
 
 4 methods x 2 sizes (30, 300) x 2 sources (original / generated) = 16 sets.
 
-Methodology (documented; this is the ambiguity סעיף ד asks us to resolve):
+Methodology (documented; this is the ambiguity section 4 asks us to resolve):
   * Each method is FIT JOINTLY on all 10 documents so originals and generated
     texts live in the SAME space and are directly comparable; the "2 sources"
     axis is a partition of the 10 document vectors, sliced out for the 16 sets.
@@ -15,7 +15,7 @@ Methodology (documented; this is the ambiguity סעיף ד asks us to resolve):
       - FastText     : mean of its word vectors (mean pooling).
       - MiniLM       : mean of its sentence embeddings, then PCA.
   * `atoms300` per method (sentence/word vectors in the 300-dim space) are kept so
-    section ז can fit a well-conditioned PCA(300->30) basis on many samples.
+    section 7 can fit a well-conditioned PCA(300->30) basis on many samples.
 
 Run:  python -m src.embeddings   ->  writes data/embeddings/artifacts.pkl,
       16 per-set .npz files, and manifest.json.
@@ -52,7 +52,7 @@ def _build_count_based(docs, pool, dim, tfidf: bool):
     vec = Vec(max_features=dim, token_pattern=r"[a-z]+(?:'[a-z]+)?", lowercase=True)
     doc_vecs = _pad(vec.fit_transform(texts).toarray().astype(np.float64), dim)
     atoms = None
-    if dim == 300:  # atoms only needed in the 300-dim space (for section ז)
+    if dim == 300:  # atoms only needed in the 300-dim space (for section 7)
         atoms = _pad(vec.transform(pool).toarray().astype(np.float64), dim)
     return doc_vecs, atoms, len(vec.get_feature_names_out())
 
@@ -81,7 +81,7 @@ def _build_fasttext(docs, pool, dim):
     atoms = None
     if dim == 300:
         atoms = np.array([model.wv[w] for w in model.wv.index_to_key], dtype=np.float64)
-        model.save(str(EMB_DIR / "fasttext_300.model"))  # reused by probe analysis (ט)
+        model.save(str(EMB_DIR / "fasttext_300.model"))  # reused by probe analysis (9)
     return doc_vecs, atoms
 
 

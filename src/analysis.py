@@ -1,6 +1,6 @@
-"""Phase 4 (סעיפים ה, ו, ז): comparative experiments over the 16 embedding sets.
+"""Phase 4 (sections 5, 6, 7): comparative experiments over the 16 embedding sets.
 
-Chosen סעיף-ה research questions (2 of 4):
+Chosen section-5 research questions (2 of 4):
   Q1  Which method is most SENSITIVE TO SHARED/OVERLAPPING WORDS?
   Q2  Which method captures SEMANTIC SIMILARITY WITHOUT literal word overlap?
 
@@ -16,8 +16,8 @@ We use the joint 10-document embedding spaces plus two lexical-overlap signals:
                 meaning beyond words (answers Q2). We report their mean Jaccard
                 too, to show the overlap really is low.
 
-סעיף ו : quality of results at 30 vs 300 dims, via a topic-SEPARATION score.
-סעיף ז : reduce 300-dim -> 30 with PCA (basis fit on each method's atom pool) and
+section 6 : quality of results at 30 vs 300 dims, via a topic-SEPARATION score.
+section 7 : reduce 300-dim -> 30 with PCA (basis fit on each method's atom pool) and
          re-run the same metrics; compare native-30 vs PCA-30.
 
 Run:  python -m src.analysis   -> writes results/*.csv and results/*.png
@@ -101,7 +101,7 @@ def src_rows(labels, source):
 
 
 # --------------------------------------------------------------------------- #
-# סעיף ה : method comparison
+# section 5 : method comparison
 # --------------------------------------------------------------------------- #
 def section_he(art, tok_sets) -> pd.DataFrame:
     labels = art["labels"]
@@ -117,7 +117,7 @@ def section_he(art, tok_sets) -> pd.DataFrame:
 
 
 # --------------------------------------------------------------------------- #
-# סעיף ו : effect of embedding size
+# section 6 : effect of embedding size
 # --------------------------------------------------------------------------- #
 def section_vav(art) -> pd.DataFrame:
     labels = art["labels"]
@@ -133,7 +133,7 @@ def section_vav(art) -> pd.DataFrame:
 
 
 # --------------------------------------------------------------------------- #
-# סעיף ז : PCA 300 -> 30 vs native 30
+# section 7 : PCA 300 -> 30 vs native 30
 # --------------------------------------------------------------------------- #
 def pca_reduce_docs(art, method) -> np.ndarray:
     """PCA-reduce a method's 10x300 doc vectors to 30, basis fit on its atom pool."""
@@ -146,11 +146,14 @@ def section_zayin(art, tok_sets) -> pd.DataFrame:
     rows = []
     for m in METHODS:
         pca30, fp = pca_reduce_docs(art, m)
-        # metrics for native-30, pca-from-300, and (reference) native-300
+        # metrics for native-30, pca-from-300, and (reference) native-300.
+        # MiniLM is natively 384-d, so its "30"/"300" sets are themselves PCA
+        # projections of the 384-d space; label them as such, not "native".
+        n30, n300 = ("pca384→30", "pca384→300") if m == "minilm" else ("native30", "native300")
         variants = {
-            "native30": art["doc"][m][30],
+            n30: art["doc"][m][30],
             "pca300to30": pca30,
-            "native300": art["doc"][m][300],
+            n300: art["doc"][m][300],
         }
         for name, mat in variants.items():
             r, xcos, _ = lex_corr_and_xtopic(mat, tok_sets, labels)
@@ -208,11 +211,11 @@ def main() -> int:
     zay.to_csv(RESULTS_DIR / "section_zayin_pca.csv", index=False)
 
     pd.set_option("display.width", 120)
-    print("\n=== סעיף ה  Method comparison (Q1 shared-words / Q2 semantic-no-overlap) ===")
+    print("\n=== section 5  Method comparison (Q1 shared-words / Q2 semantic-no-overlap) ===")
     print(he.to_string(index=False))
-    print("\n=== סעיף ו  Effect of embedding size (topic-separation score) ===")
+    print("\n=== section 6  Effect of embedding size (topic-separation score) ===")
     print(vav.to_string(index=False))
-    print("\n=== סעיף ז  PCA 300->30 vs native-30 ===")
+    print("\n=== section 7  PCA 300->30 vs native-30 ===")
     print(zay.to_string(index=False))
     print("\nFigures:")
     make_heatmaps(art, dim=300)

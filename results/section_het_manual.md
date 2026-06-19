@@ -1,4 +1,4 @@
-# סעיף ח - Manual BoW / TF-IDF / Cosine Walkthrough
+# Section 8 - Manual BoW / TF-IDF / Cosine Walkthrough
 
 Three sentences taken verbatim from `data/generated/wiki_gen_01_photosynthesis.txt`:
 

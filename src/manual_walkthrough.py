@@ -1,4 +1,4 @@
-"""Phase 5 (סעיף ח): by-hand BoW / TF-IDF / cosine walkthrough.
+"""Phase 5 (section 8): by-hand BoW / TF-IDF / cosine walkthrough.
 
 Picks 3 sentences from the GENERATED data and shows, step by step:
   1. the vocabulary and the BoW count matrix (manual counting);
@@ -87,7 +87,7 @@ def main() -> int:
 
     # ---- render ------------------------------------------------------------
     L = []
-    L.append("# סעיף ח - Manual BoW / TF-IDF / Cosine Walkthrough\n")
+    L.append("# Section 8 - Manual BoW / TF-IDF / Cosine Walkthrough\n")
     L.append("Three sentences taken verbatim from "
              "`data/generated/wiki_gen_01_photosynthesis.txt`:\n")
     for i, s in enumerate(SENTENCES, 1):

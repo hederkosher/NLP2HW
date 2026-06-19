@@ -1,5 +1,5 @@
-"""Reusable PCA reduction (used both for transformer sizing in סעיף ד and for
-the explicit 300->30 reduction experiment in סעיף ז).
+"""Reusable PCA reduction (used both for transformer sizing in section 4 and for
+the explicit 300->30 reduction experiment in section 7).
 
 The basis is ALWAYS fit on a large `pool` of vectors (sentences / words), never on
 the 10 document vectors alone -- with only 10 samples PCA could yield at most 9

@@ -1,4 +1,4 @@
-# סעיף ט - Probe Sentences (method-difference stress test)
+# Section 9 - Probe Sentences (method-difference stress test)
 
 **Group A - similar meaning, different words:**
 - A1: "The doctor treated the patient."

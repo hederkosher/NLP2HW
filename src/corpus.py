@@ -55,7 +55,7 @@ def load_sentence_pool() -> List[str]:
 
     = sentences from the FULL original Wikipedia articles (thousands) plus the
     sentences of the 5 generated texts. Far more samples than the 10 documents,
-    so PCA can yield genuine 30- and 300-component bases (sections ד/ז).
+    so PCA can yield genuine 30- and 300-component bases (sections 4/7).
     """
     pool: List[str] = []
     full_dir = ORIGINAL_DIR / "_full"

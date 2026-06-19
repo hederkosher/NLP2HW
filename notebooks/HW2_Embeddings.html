@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>HW2_Embeddings</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7802,18 +7802,22 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Students:">Students:<a class="anchor-link" href="#Students:">¶</a></h3><ul>
+<li>Name: Ronen Shershnev ID: 322217175</li>
+<li>Name: Vladislav Pavlyuk ID: 332294891</li>
+</ul>
 <h1 id="Homework-2---Embeddings">Homework 2 - Embeddings<a class="anchor-link" href="#Homework-2---Embeddings">¶</a></h1><p>A comparative study of four text-embedding methods on English Wikipedia texts.</p>
 <p><strong>Corpus:</strong> 5 real English Wikipedia excerpts (≥300 words) + 5 Claude-generated
 texts on the same 5 topics (≥300 words, deliberately <strong>restricted vocabulary</strong>).
 <strong>Topics:</strong> Photosynthesis &amp; Cellular respiration (biology pair), Jazz &amp; Blues
 (music pair), Mount Everest (outlier).
 <strong>Methods:</strong> Bag-of-Words, TF-IDF, FastText (gensim), MiniLM (<code>all-MiniLM-L6-v2</code>).</p>
-<h3 id="Methodology-decisions-(resolving-the-ambiguity-in-%D7%A1%D7%A2%D7%99%D7%A3-%D7%93)">Methodology decisions (resolving the ambiguity in סעיף ד)<a class="anchor-link" href="#Methodology-decisions-(resolving-the-ambiguity-in-%D7%A1%D7%A2%D7%99%D7%A3-%D7%93)">¶</a></h3><ul>
+<h3 id="Methodology-decisions-(resolving-the-ambiguity-in-section-4)">Methodology decisions (resolving the ambiguity in section 4)<a class="anchor-link" href="#Methodology-decisions-(resolving-the-ambiguity-in-section-4)">¶</a></h3><ul>
 <li><strong>Sizing to 30 / 300 dims:</strong> BoW/TF-IDF via <code>max_features</code>; FastText via gensim
 <code>vector_size</code>; MiniLM (384-d) via <strong>PCA</strong> to 30/300.</li>
 <li><strong>PCA bases are fit on a ~2,250-sentence pool</strong> (full articles + generated
 texts), never on the 10 documents alone (10 samples → ≤9 components). This is
-the reusable PCA used again in סעיף ז.</li>
+the reusable PCA used again in section 7.</li>
 <li><strong>Document vector</strong> = BoW/TF-IDF row · FastText mean-of-word-vectors ·
 MiniLM mean-of-sentence-embeddings then PCA.</li>
 <li><strong>Joint fitting</strong>: each method is fit once on all 10 docs (shared space); the
@@ -7875,7 +7879,7 @@ MiniLM mean-of-sentence-embeddings then PCA.</li>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>repo root: /Users/hederkosher/School/Year 4/סמסטר ב׳/עיבוד שפה טבעית/שיעורי בית/NLP2HW
+<pre>repo root: NLP2HW
 </pre>
 </div>
 </div>
@@ -7888,7 +7892,7 @@ MiniLM mean-of-sentence-embeddings then PCA.</li>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%D7%90---Data-collection">א - Data collection<a class="anchor-link" href="#%D7%90---Data-collection">¶</a></h2><p>5 English Wikipedia articles fetched via the MediaWiki action API
+<h2 id="1---Data-collection">1 - Data collection<a class="anchor-link" href="#1---Data-collection">¶</a></h2><p>5 English Wikipedia articles fetched via the MediaWiki action API
 (<code>src/data_collection.py</code>), cleaned, and cut to ≥300-word excerpts. Each saved
 text is the current-revision article lead.</p>
 <p><strong>Sources (English Wikipedia):</strong></p>
@@ -8062,7 +8066,7 @@ Photosynthesis is a system of biological processes by which photopigment-bearing
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%D7%91---AI-generated-texts-(restricted-vocabulary)">ב - AI-generated texts (restricted vocabulary)<a class="anchor-link" href="#%D7%91---AI-generated-texts-(restricted-vocabulary)">¶</a></h2><p>Generated with Claude using the exact prompt below, which <strong>explicitly demands as
+<h2 id="2---AI-generated-texts-(restricted-vocabulary)">2 - AI-generated texts (restricted vocabulary)<a class="anchor-link" href="#2---AI-generated-texts-(restricted-vocabulary)">¶</a></h2><p>Generated with Claude using the exact prompt below, which <strong>explicitly demands as
 limited a vocabulary as possible</strong> (the graded constraint). Evidence that it
 worked: the generated texts have a much lower type-token ratio (unique/total
 words) than the originals.</p>
@@ -8092,7 +8096,7 @@ words) than the originals.</p>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>SYSTEM / INSTRUCTION PROMPT SENT TO THE LANGUAGE MODEL (Claude)
 ================================================================
-(Section ב requires that the prompt explicitly ask the model to use as
+(Section 2 requires that the prompt explicitly ask the model to use as
 LIMITED / RESTRICTED a vocabulary as possible. This is the exact prompt used.)
 
 You are writing a short, encyclopedia-style explanatory article in English about
@@ -8217,9 +8221,10 @@ Write the article now.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%D7%92-+-%D7%93---The-16-embedding-sets">ג + ד - The 16 embedding sets<a class="anchor-link" href="#%D7%92-+-%D7%93---The-16-embedding-sets">¶</a></h2><p>4 methods × 2 sizes (30, 300) × 2 sources = <strong>16 sets</strong>
+<h2 id="3-+-4---The-16-embedding-sets">3 + 4 - The 16 embedding sets<a class="anchor-link" href="#3-+-4---The-16-embedding-sets">¶</a></h2><p>4 methods × 2 sizes (30, 300) × 2 sources = <strong>16 sets</strong>
 (<code>src/embeddings.py</code> → <code>data/embeddings/</code>). Building trains FastText and encodes
 the sentence pool with MiniLM (~1 minute the first time).</p>
+<p>Each of the 10 texts is represented as a single <strong>document vector</strong> by aggregating its word vectors (BoW/TF-IDF rows; mean-pooled FastText/MiniLM); explicit per-word vectors are demonstrated by hand in section 8.</p>
 </div>
 </div>
 </div>
@@ -8348,7 +8353,7 @@ MiniLM PCA explained variance: {'minilm_30': {'explained_var': 0.5181, 'padded':
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%D7%94---Method-comparison-(2-research-questions)">ה - Method comparison (2 research questions)<a class="anchor-link" href="#%D7%94---Method-comparison-(2-research-questions)">¶</a></h2><p><strong>Q1 - sensitive to shared/overlapping words?</strong> <code>lex_corr</code> = Pearson r between
+<h2 id="5---Method-comparison-(2-research-questions)">5 - Method comparison (2 research questions)<a class="anchor-link" href="#5---Method-comparison-(2-research-questions)">¶</a></h2><p><strong>Q1 - sensitive to shared/overlapping words?</strong> <code>lex_corr</code> = Pearson r between
 cosine similarity and Jaccard <em>word</em> overlap over all 45 document pairs (high ⇒
 similarity is driven by shared words).</p>
 <p><strong>Q2 - semantic similarity without literal overlap?</strong> <code>xtopic_cos</code> = mean cosine
@@ -8480,7 +8485,7 @@ of the 5 same-topic <strong>original↔generated</strong> pairs, which share onl
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>  wrote /Users/hederkosher/School/Year 4/סמסטר ב׳/עיבוד שפה טבעית/שיעורי בית/NLP2HW/results/heatmaps_dim300.png
+<pre>  wrote NLP2HW/results/heatmaps_dim300.png
 </pre>
 </div>
 </div>
@@ -8503,11 +8508,11 @@ of the 5 same-topic <strong>original↔generated</strong> pairs, which share onl
 <ul>
 <li><strong>Q1:</strong> <strong>TF-IDF at 300-dim</strong> is the most lexical (lex_corr 0.54; its
 cross-vocabulary semantic match collapses to 0.47). BoW behaves similarly.</li>
-<li><strong>Q2:</strong> read <code>xtopic_cos</code> <em>together with</em> topic separation (סעיף ו) because
+<li><strong>Q2:</strong> read <code>xtopic_cos</code> <em>together with</em> topic separation (section 6) because
 FastText scores ≈0.92 on <em>everything</em> and so is not discriminative. <strong>MiniLM</strong>
 is the method that keeps same-meaning/different-words pairs similar <strong>while
 still separating unrelated topics</strong> (see the clean biology/music blocks in the
-MiniLM heatmap vs the uniformly bright FastText panel). Confirmed in סעיף ט.</li>
+MiniLM heatmap vs the uniformly bright FastText panel). Confirmed in section 9.</li>
 </ul>
 </div>
 </div>
@@ -8519,12 +8524,12 @@ MiniLM heatmap vs the uniformly bright FastText panel). Confirmed in סעיף ט
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%D7%95---Effect-of-embedding-size">ו - Effect of embedding size<a class="anchor-link" href="#%D7%95---Effect-of-embedding-size">¶</a></h2><p><strong>Topic-separation score</strong> on a source's 5 docs = mean cosine of same-domain
+<h2 id="6---Effect-of-embedding-size">6 - Effect of embedding size<a class="anchor-link" href="#6---Effect-of-embedding-size">¶</a></h2><p><strong>Topic-separation score</strong> on a source's 5 docs = mean cosine of same-domain
 close pairs − mean cosine of the other pairs (higher = better). This is the
 "quality" metric (it directly measures whether related texts cluster and
-unrelated ones separate), used consistently here and in סעיף ז. The effect of
-length on סעיף ה's own metrics (lex_corr, xtopic_cos) is also visible directly in
-the ה table above, which lists every method at both dim=30 and dim=300.</p>
+unrelated ones separate), used consistently here and in section 7. The effect of
+length on section 5's own metrics (lex_corr, xtopic_cos) is also visible directly in
+the 5 table above, which lists every method at both dim=30 and dim=300.</p>
 </div>
 </div>
 </div>
@@ -8635,7 +8640,7 @@ components hold the dominant semantic axes, extra dims add noise.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%D7%96---PCA-reduction-(300-%E2%86%92-30)-vs-native-30">ז - PCA reduction (300 → 30) vs native-30<a class="anchor-link" href="#%D7%96---PCA-reduction-(300-%E2%86%92-30)-vs-native-30">¶</a></h2><p>For each method, reduce the 300-dim doc vectors to 30 with PCA (basis fit on the
+<h2 id="7---PCA-reduction-(300-%E2%86%92-30)-vs-native-30">7 - PCA reduction (300 → 30) vs native-30<a class="anchor-link" href="#7---PCA-reduction-(300-%E2%86%92-30)-vs-native-30">¶</a></h2><p>For each method, reduce the 300-dim doc vectors to 30 with PCA (basis fit on the
 method's atom pool) and compare to native-30.</p>
 </div>
 </div>
@@ -8772,7 +8777,7 @@ method's atom pool) and compare to native-30.</p>
 <tr>
 <th>9</th>
 <td>minilm</td>
-<td>native30</td>
+<td>pca384→30</td>
 <td>0.446</td>
 <td>0.771</td>
 <td>0.824</td>
@@ -8790,7 +8795,7 @@ method's atom pool) and compare to native-30.</p>
 <tr>
 <th>11</th>
 <td>minilm</td>
-<td>native300</td>
+<td>pca384→300</td>
 <td>0.475</td>
 <td>0.657</td>
 <td>0.732</td>
@@ -8826,7 +8831,7 @@ the number 30.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%D7%97---Manual-BoW-/-TF-IDF-/-cosine-walkthrough">ח - Manual BoW / TF-IDF / cosine walkthrough<a class="anchor-link" href="#%D7%97---Manual-BoW-/-TF-IDF-/-cosine-walkthrough">¶</a></h2><p>Three sentences from the generated photosynthesis text, worked <strong>by hand</strong>:
+<h2 id="8---Manual-BoW-/-TF-IDF-/-cosine-walkthrough">8 - Manual BoW / TF-IDF / cosine walkthrough<a class="anchor-link" href="#8---Manual-BoW-/-TF-IDF-/-cosine-walkthrough">¶</a></h2><p>Three sentences from the generated photosynthesis text, worked <strong>by hand</strong>:
 vocabulary, count matrix, TF/IDF/TF·IDF, L2 normalization, and cosine between word
 <em>column</em> vectors - each step shown, then cross-checked against scikit-learn.</p>
 </div>
@@ -8854,7 +8859,7 @@ vocabulary, count matrix, TF/IDF/TF·IDF, L2 normalization, and cosine between w
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>wrote /Users/hederkosher/School/Year 4/סמסטר ב׳/עיבוד שפה טבעית/שיעורי בית/NLP2HW/results/section_het_manual.md
+<pre>wrote NLP2HW/results/section_het_manual.md
 sklearn cross-check: BoW=True  TF-IDF=True
 </pre>
 </div>
@@ -8862,7 +8867,7 @@ sklearn cross-check: BoW=True  TF-IDF=True
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
-<h1 id="%D7%A1%D7%A2%D7%99%D7%A3-%D7%97---Manual-BoW-/-TF-IDF-/-Cosine-Walkthrough">סעיף ח - Manual BoW / TF-IDF / Cosine Walkthrough<a class="anchor-link" href="#%D7%A1%D7%A2%D7%99%D7%A3-%D7%97---Manual-BoW-/-TF-IDF-/-Cosine-Walkthrough">¶</a></h1><p>Three sentences taken verbatim from <code>data/generated/wiki_gen_01_photosynthesis.txt</code>:</p>
+<h1 id="Section-8---Manual-BoW-/-TF-IDF-/-Cosine-Walkthrough">Section 8 - Manual BoW / TF-IDF / Cosine Walkthrough<a class="anchor-link" href="#Section-8---Manual-BoW-/-TF-IDF-/-Cosine-Walkthrough">¶</a></h1><p>Three sentences taken verbatim from <code>data/generated/wiki_gen_01_photosynthesis.txt</code>:</p>
 <ul>
 <li><strong>S1:</strong> "Plants make their own food."</li>
 <li><strong>S2:</strong> "They make this food from sunlight, water, and air."</li>
@@ -9394,7 +9399,7 @@ sklearn cross-check: BoW=True  TF-IDF=True
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%D7%98---Probe-sentences-(method-difference-stress-test)">ט - Probe sentences (method-difference stress test)<a class="anchor-link" href="#%D7%98---Probe-sentences-(method-difference-stress-test)">¶</a></h2><p><strong>Group A</strong> = same meaning, different words · <strong>Group B</strong> = same words ("bank"),
+<h2 id="9---Probe-sentences-(method-difference-stress-test)">9 - Probe sentences (method-difference stress test)<a class="anchor-link" href="#9---Probe-sentences-(method-difference-stress-test)">¶</a></h2><p><strong>Group A</strong> = same meaning, different words · <strong>Group B</strong> = same words ("bank"),
 different meaning. We embed all 6 with each method and inspect the 6×6 cosines.</p>
 </div>
 </div>
@@ -9441,7 +9446,7 @@ wrote results/section_tet_probes.md and .png
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
-<h1 id="%D7%A1%D7%A2%D7%99%D7%A3-%D7%98---Probe-Sentences-(method-difference-stress-test)">סעיף ט - Probe Sentences (method-difference stress test)<a class="anchor-link" href="#%D7%A1%D7%A2%D7%99%D7%A3-%D7%98---Probe-Sentences-(method-difference-stress-test)">¶</a></h1><p><strong>Group A - similar meaning, different words:</strong></p>
+<h1 id="Section-9---Probe-Sentences-(method-difference-stress-test)">Section 9 - Probe Sentences (method-difference stress test)<a class="anchor-link" href="#Section-9---Probe-Sentences-(method-difference-stress-test)">¶</a></h1><p><strong>Group A - similar meaning, different words:</strong></p>
 <ul>
 <li>A1: "The doctor treated the patient."</li>
 <li>A2: "The physician helped the sick person."</li>
@@ -9785,7 +9790,7 @@ wrote results/section_tet_probes.md and .png
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%D7%99---Why-can-TF-IDF-fail-to-detect-semantic-similarity?">י - Why can TF-IDF fail to detect semantic similarity?<a class="anchor-link" href="#%D7%99---Why-can-TF-IDF-fail-to-detect-semantic-similarity?">¶</a></h2><p>TF-IDF represents a sentence as weighted counts over a <strong>fixed vocabulary</strong>, each
+<h2 id="10---Why-can-TF-IDF-fail-to-detect-semantic-similarity?">10 - Why can TF-IDF fail to detect semantic similarity?<a class="anchor-link" href="#10---Why-can-TF-IDF-fail-to-detect-semantic-similarity?">¶</a></h2><p>TF-IDF represents a sentence as weighted counts over a <strong>fixed vocabulary</strong>, each
 word an independent, meaning-free dimension. Two sentences that mean the same
 thing with <strong>different words</strong> share few/no dimensions → near-orthogonal vectors
 → low cosine. IDF makes it worse by <em>up-weighting rare words</em>, so distinctive
@@ -9795,12 +9800,12 @@ synonyms ("physician" vs "doctor") push the vectors apart instead of together.
 to <strong>0.47</strong> at 300-dim because the generated texts restate meaning with a
 different, restricted vocabulary. TF-IDF has no notion of synonymy - it only
 matches surface tokens.</p>
-<h2 id="%D7%99%D7%90---Does-a-higher-dimensional-embedding-always-give-better-results?">יא - Does a higher-dimensional embedding always give better results?<a class="anchor-link" href="#%D7%99%D7%90---Does-a-higher-dimensional-embedding-always-give-better-results?">¶</a></h2><p><strong>No.</strong> From סעיף ו, MiniLM's topic separation <em>drops</em> from <strong>0.824 (30-d) to
+<h2 id="11---Does-a-higher-dimensional-embedding-always-give-better-results?">11 - Does a higher-dimensional embedding always give better results?<a class="anchor-link" href="#11---Does-a-higher-dimensional-embedding-always-give-better-results?">¶</a></h2><p><strong>No.</strong> From section 6, MiniLM's topic separation <em>drops</em> from <strong>0.824 (30-d) to
 0.732 (300-d)</strong>: the first ~30 PCA components hold the dominant semantic axes
 (51.8 % variance) and the extra 270 dims add mostly noise. <strong>When the dimension is
 too small</strong>, information loss is catastrophic: BoW/TF-IDF at 30 dims keep only the
 30 commonest words ("the, and, of, a, …"), so all documents look alike and
-separation is ≈0 (BoW 0.049). Section ז reinforces it: PCA-reduced 30 dims
+separation is ≈0 (BoW 0.049). Section 7 reinforces it: PCA-reduced 30 dims
 (information-rich) beat native top-30 dims (TF-IDF 0.13→0.40, FastText 0.15→0.86).
 So more dimensions help only while each new dimension still carries useful,
 non-redundant signal.</p>

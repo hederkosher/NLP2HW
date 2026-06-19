@@ -8,6 +8,6 @@ tfidf,native300,0.543,0.469,0.168,
 fasttext,native30,0.793,0.92,0.145,
 fasttext,pca300to30,0.823,0.53,0.861,0.919
 fasttext,native300,0.797,0.919,0.14,
-minilm,native30,0.446,0.771,0.824,
+minilm,pca384→30,0.446,0.771,0.824,
 minilm,pca300to30,0.445,0.772,0.824,0.521
-minilm,native300,0.475,0.657,0.732,
+minilm,pca384→300,0.475,0.657,0.732,

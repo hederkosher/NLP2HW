@@ -9,12 +9,12 @@ end** in Python under `src/`. Spec: `exercise2.pdf` (Hebrew).
 
 Deliverables:
 - **`notebooks/HW2_Embeddings.ipynb`** - the graded submission (executed, with
-  embedded outputs), organized by the Hebrew section letters א–יא.
+  embedded outputs), organized by numbered sections 1–11.
 - **`REPORT.md`** - the same narrative in Markdown; per-section outputs in `results/`.
 
 Concrete choices already made (don't re-ask): genre = **English Wikipedia**;
 5 topics = photosynthesis, cellular_respiration, jazz, blues, mount_everest
-(two same-domain pairs + an outlier); the ה research questions are "sensitive to
+(two same-domain pairs + an outlier); the section 5 research questions are "sensitive to
 shared words" and "semantic similarity without lexical overlap". All such
 constants live in `src/config.py`.
 
@@ -25,7 +25,7 @@ project uses an **isolated venv** with pinned versions. Always use `.venv`:
 
 ```bash
 python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m src.run_all        # full pipeline: sections א→ט, regenerates results/
+.venv/bin/python -m src.run_all        # full pipeline: sections 1→9, regenerates results/
 
 # Submission notebook (built from src/, then executed to embed outputs):
 .venv/bin/python -m src.build_notebook
@@ -45,9 +45,9 @@ that **calls the `src/` functions** (never duplicates logic), so editing a metri
 in `src/` and re-running `build_notebook` keeps the notebook in sync.
 
 Each phase is independently runnable (and that's the fastest way to iterate):
-`python -m src.data_collection` (א, network), `src.generate_texts` (ב, validates),
-`src.embeddings` (ג+ד, ~1 min: trains FastText + encodes MiniLM), `src.analysis`
-(ה/ו/ז), `src.manual_walkthrough` (ח), `src.probes` (ט). Run modules with
+`python -m src.data_collection` (1, network), `src.generate_texts` (2, validates),
+`src.embeddings` (3+4, ~1 min: trains FastText + encodes MiniLM), `src.analysis`
+(5/6/7), `src.manual_walkthrough` (8), `src.probes` (9). Run modules with
 `-m src.<name>` from the repo root (package imports assume this).
 
 ## Architecture (big picture)
@@ -63,12 +63,12 @@ The pipeline turns 10 texts into 16 embedding sets, then compares them. Data flo
   Each method is fit **jointly on all 10 docs** so originals/generated share one
   space; the "2 sources" axis is just a partition. `atoms300[method]` (sentence/
   word vectors in 300-d) are persisted so `src.analysis` can fit a well-conditioned
-  PCA(300→30) for section ז.
+  PCA(300→30) for section 7.
 - `src/reduce.py` - the reusable PCA, **always fit on the pool, never on the 10
-  docs** (10 samples → ≤9 components). Used for MiniLM sizing (ד) and for ז.
-- `src/analysis.py` - sections ה/ו/ז metrics (lexical-overlap correlation,
+  docs** (10 samples → ≤9 components). Used for MiniLM sizing (4) and for 7.
+- `src/analysis.py` - sections 5/6/7 metrics (lexical-overlap correlation,
   cross-source same-topic cosine, topic-separation score) + heatmaps.
-- `src/probes.py`, `src/manual_walkthrough.py` - sections ט and ח (self-contained
+- `src/probes.py`, `src/manual_walkthrough.py` - sections 9 and 8 (self-contained
   Markdown in `results/`, cross-checked against scikit-learn).
 
 ### Non-obvious gotchas
@@ -89,7 +89,7 @@ The goal is a **comparative study of text-embedding methods**. The core pipeline
    speeches, news e.g. YNET, or short story). Collect **5 human-written texts**
    (≥300 words each), then use an LLM (e.g. Claude) to generate **5 more texts**
    of the same genre, prompting for **as limited/restricted a vocabulary as
-   possible** (אוצר מילים מצומצם - this constraint is graded). Keep the two sets
+   possible** (restricted vocabulary - this constraint is graded). Keep the two sets
    (human vs. AI-generated) distinguishable - comparisons depend on this split.
 
 2. **Embed every text with 4 methods:**
@@ -103,7 +103,7 @@ The goal is a **comparative study of text-embedding methods**. The core pipeline
    sources (human/AI), the spec frames this as **16 embedding configurations** -
    keep results organized along these three axes (method × dimension × source).
 
-4. **Research questions (ה–יא).** Pick and investigate research questions such as:
+4. **Research questions (5–11).** Pick and investigate research questions such as:
    which method best identifies *similar* texts, best *separates* different texts,
    is most sensitive to *shared words*, or best captures *semantic similarity
    without lexical overlap*. Report results in tables.
@@ -120,8 +120,9 @@ The goal is a **comparative study of text-embedding methods**. The core pipeline
 
 ## Working notes
 
-- The assignment text is **Hebrew**; section labels use Hebrew letters
-  (א, ב, ג … יא). When asked about "section ז" etc., map back to the list above.
+- The assignment text (`exercise2.pdf`) is **Hebrew**; the original section labels
+  used Hebrew letters (א–יא) but have been **renumbered to 1–11** throughout the
+  codebase, notebook, report, and HTML export.
 - The intellectual core is the **comparison and analysis**, not just generating
   embeddings - keep cosine-similarity comparisons, tables, and written
   conclusions as first-class outputs alongside any code.

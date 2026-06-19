@@ -1,10 +1,10 @@
-"""Phase 1 (סעיף א): fetch 5 English Wikipedia articles.
+"""Phase 1 (section 1): fetch 5 English Wikipedia articles.
 
 Saves two things per topic:
   * data/original/wiki_0N_<slug>.txt  -> a >=300-word cleaned EXCERPT (the
     graded deliverable: 5 natural-prose texts).
   * data/original/_full/<slug>.full.txt -> the FULL cleaned article, used later
-    only as a larger sentence pool for fitting PCA bases (sections ד/ז need more
+    only as a larger sentence pool for fitting PCA bases (sections 4/7 need more
     samples than 5 documents can provide). Not part of the 5 graded texts.
 
 Run:  python -m src.data_collection

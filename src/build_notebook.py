@@ -1,7 +1,7 @@
 """Build the submission notebook notebooks/HW2_Embeddings.ipynb.
 
-The notebook is a thin, readable narrative organized by the Hebrew section letters
-(א–יא). It REUSES the verified functions in src/ rather than duplicating logic, so
+The notebook is a thin, readable narrative organized by the section numbers
+(1–11). It REUSES the verified functions in src/ rather than duplicating logic, so
 the notebook and the scripts can never drift apart. Run:
 
     python -m src.build_notebook        # writes the .ipynb (no outputs yet)
@@ -41,12 +41,12 @@ texts on the same 5 topics (≥300 words, deliberately **restricted vocabulary**
 (music pair), Mount Everest (outlier).
 **Methods:** Bag-of-Words, TF-IDF, FastText (gensim), MiniLM (`all-MiniLM-L6-v2`).
 
-### Methodology decisions (resolving the ambiguity in סעיף ד)
+### Methodology decisions (resolving the ambiguity in section 4)
 - **Sizing to 30 / 300 dims:** BoW/TF-IDF via `max_features`; FastText via gensim
   `vector_size`; MiniLM (384-d) via **PCA** to 30/300.
 - **PCA bases are fit on a ~2,250-sentence pool** (full articles + generated
   texts), never on the 10 documents alone (10 samples → ≤9 components). This is
-  the reusable PCA used again in סעיף ז.
+  the reusable PCA used again in section 7.
 - **Document vector** = BoW/TF-IDF row · FastText mean-of-word-vectors ·
   MiniLM mean-of-sentence-embeddings then PCA.
 - **Joint fitting**: each method is fit once on all 10 docs (shared space); the
@@ -78,9 +78,9 @@ from src.text_utils import word_count, tokenize_words
 print("repo root:", ROOT)
 """))
 
-    # --- א ---
+    # --- 1 ---
     cells.append(md(r"""
-## א - Data collection
+## 1 - Data collection
 
 5 English Wikipedia articles fetched via the MediaWiki action API
 (`src/data_collection.py`), cleaned, and cut to ≥300-word excerpts. Each saved
@@ -108,9 +108,9 @@ print("\\nSample excerpt (original photosynthesis):\\n")
 print(docs[0].text[:400], "...")
 """))
 
-    # --- ב ---
+    # --- 2 ---
     cells.append(md(r"""
-## ב - AI-generated texts (restricted vocabulary)
+## 2 - AI-generated texts (restricted vocabulary)
 
 Generated with Claude using the exact prompt below, which **explicitly demands as
 limited a vocabulary as possible** (the graded constraint). Evidence that it
@@ -132,13 +132,17 @@ for i, (slug, _, _) in enumerate(config.TOPICS, 1):
 pd.DataFrame(rows).round(3)
 """))
 
-    # --- ג+ד ---
+    # --- 3+4 ---
     cells.append(md(r"""
-## ג + ד - The 16 embedding sets
+## 3 + 4 - The 16 embedding sets
 
 4 methods × 2 sizes (30, 300) × 2 sources = **16 sets**
 (`src/embeddings.py` → `data/embeddings/`). Building trains FastText and encodes
 the sentence pool with MiniLM (~1 minute the first time).
+
+Each of the 10 texts is represented as a single **document vector** by
+aggregating its word vectors (BoW/TF-IDF rows; mean-pooled FastText/MiniLM);
+explicit per-word vectors are demonstrated by hand in section 8.
 """))
     cells.append(code(r"""
 if not embeddings.ARTIFACTS_PATH.exists():
@@ -152,9 +156,9 @@ display(pd.DataFrame(manifest).pivot_table(
     index=["method", "dim"], columns="source", values="shape", aggfunc="first"))
 """))
 
-    # --- ה ---
+    # --- 5 ---
     cells.append(md(r"""
-## ה - Method comparison (2 research questions)
+## 5 - Method comparison (2 research questions)
 
 **Q1 - sensitive to shared/overlapping words?**  `lex_corr` = Pearson r between
 cosine similarity and Jaccard *word* overlap over all 45 document pairs (high ⇒
@@ -175,23 +179,23 @@ display(Image(str(config.RESULTS_DIR / "heatmaps_dim300.png")))
 **Findings.**
 - **Q1:** **TF-IDF at 300-dim** is the most lexical (lex_corr 0.54; its
   cross-vocabulary semantic match collapses to 0.47). BoW behaves similarly.
-- **Q2:** read `xtopic_cos` *together with* topic separation (סעיף ו) because
+- **Q2:** read `xtopic_cos` *together with* topic separation (section 6) because
   FastText scores ≈0.92 on *everything* and so is not discriminative. **MiniLM**
   is the method that keeps same-meaning/different-words pairs similar **while
   still separating unrelated topics** (see the clean biology/music blocks in the
-  MiniLM heatmap vs the uniformly bright FastText panel). Confirmed in סעיף ט.
+  MiniLM heatmap vs the uniformly bright FastText panel). Confirmed in section 9.
 """))
 
-    # --- ו ---
+    # --- 6 ---
     cells.append(md(r"""
-## ו - Effect of embedding size
+## 6 - Effect of embedding size
 
 **Topic-separation score** on a source's 5 docs = mean cosine of same-domain
 close pairs − mean cosine of the other pairs (higher = better). This is the
 "quality" metric (it directly measures whether related texts cluster and
-unrelated ones separate), used consistently here and in סעיף ז. The effect of
-length on סעיף ה's own metrics (lex_corr, xtopic_cos) is also visible directly in
-the ה table above, which lists every method at both dim=30 and dim=300.
+unrelated ones separate), used consistently here and in section 7. The effect of
+length on section 5's own metrics (lex_corr, xtopic_cos) is also visible directly in
+the 5 table above, which lists every method at both dim=30 and dim=300.
 """))
     cells.append(code(r"""
 display(analysis.section_vav(art))
@@ -203,9 +207,9 @@ separates topics *better* at 30-dim than 300-dim** (0.824 → 0.732): the first 
 components hold the dominant semantic axes, extra dims add noise.
 """))
 
-    # --- ז ---
+    # --- 7 ---
     cells.append(md(r"""
-## ז - PCA reduction (300 → 30) vs native-30
+## 7 - PCA reduction (300 → 30) vs native-30
 
 For each method, reduce the 300-dim doc vectors to 30 with PCA (basis fit on the
 method's atom pool) and compare to native-30.
@@ -222,9 +226,9 @@ mostly stopwords). For MiniLM the two 30-dim variants are essentially identical
 the number 30.
 """))
 
-    # --- ח ---
+    # --- 8 ---
     cells.append(md(r"""
-## ח - Manual BoW / TF-IDF / cosine walkthrough
+## 8 - Manual BoW / TF-IDF / cosine walkthrough
 
 Three sentences from the generated photosynthesis text, worked **by hand**:
 vocabulary, count matrix, TF/IDF/TF·IDF, L2 normalization, and cosine between word
@@ -235,9 +239,9 @@ manual_walkthrough.main()
 display(Markdown((config.RESULTS_DIR / "section_het_manual.md").read_text()))
 """))
 
-    # --- ט ---
+    # --- 9 ---
     cells.append(md(r"""
-## ט - Probe sentences (method-difference stress test)
+## 9 - Probe sentences (method-difference stress test)
 
 **Group A** = same meaning, different words · **Group B** = same words ("bank"),
 different meaning. We embed all 6 with each method and inspect the 6×6 cosines.
@@ -248,9 +252,9 @@ display(Image(str(config.RESULTS_DIR / "section_tet_probes.png")))
 display(Markdown((config.RESULTS_DIR / "section_tet_probes.md").read_text()))
 """))
 
-    # --- י / יא ---
+    # --- 10 / 11 ---
     cells.append(md(r"""
-## י - Why can TF-IDF fail to detect semantic similarity?
+## 10 - Why can TF-IDF fail to detect semantic similarity?
 
 TF-IDF represents a sentence as weighted counts over a **fixed vocabulary**, each
 word an independent, meaning-free dimension. Two sentences that mean the same
@@ -263,14 +267,14 @@ to **0.47** at 300-dim because the generated texts restate meaning with a
 different, restricted vocabulary. TF-IDF has no notion of synonymy - it only
 matches surface tokens.
 
-## יא - Does a higher-dimensional embedding always give better results?
+## 11 - Does a higher-dimensional embedding always give better results?
 
-**No.** From סעיף ו, MiniLM's topic separation *drops* from **0.824 (30-d) to
+**No.** From section 6, MiniLM's topic separation *drops* from **0.824 (30-d) to
 0.732 (300-d)**: the first ~30 PCA components hold the dominant semantic axes
 (51.8 % variance) and the extra 270 dims add mostly noise. **When the dimension is
 too small**, information loss is catastrophic: BoW/TF-IDF at 30 dims keep only the
 30 commonest words ("the, and, of, a, …"), so all documents look alike and
-separation is ≈0 (BoW 0.049). Section ז reinforces it: PCA-reduced 30 dims
+separation is ≈0 (BoW 0.049). Section 7 reinforces it: PCA-reduced 30 dims
 (information-rich) beat native top-30 dims (TF-IDF 0.13→0.40, FastText 0.15→0.86).
 So more dimensions help only while each new dimension still carries useful,
 non-redundant signal.
